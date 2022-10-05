@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -95,6 +96,25 @@ public class PlayerController : MonoBehaviour
         jump += potionpower;
         Debug.Log(jump);
     }
+
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.tag == "Enemy")
+        {
+            ScoreManager.instance.LoseLife(1);
+            //Destroy(gameObject);
+
+        }
+
+        if (other.collider.tag == "Goal")
+        {
+            ScoreManager.instance.ReachedGoal();
+            //Destroy(gameObject);
+
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
